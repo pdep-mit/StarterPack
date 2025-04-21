@@ -1,12 +1,13 @@
 module Library where
 import PdePreludat
    
+doble :: Number -> Number
+doble nro = nro * 2
 
 type Nombre = String 
 type Edad = Number
 type Fama = Number
-type Pack = (Nombre,Number)
-
+type Pack = (Nombre, Number)
 
 data Persona = UnPersona{
     nombre :: Nombre,
@@ -103,10 +104,10 @@ cantidadObjeto :: Pack -> Number
 --cantidadObjeto pack = snd pack 
 cantidadObjeto (descripcion,cantidad) = cantidad
 
-nuevoNombre::Nombre->Nombre
+nuevoNombre :: Nombre -> Nombre
 nuevoNombre nombre = nombre ++ "EEEEEEHHH"
 
-modoDiego::Persona ->Persona
+modoDiego :: Persona -> Persona
 modoDiego (UnPersona nom edad ciu fut pack) = UnPersona (nom ++ "EEEEEEHHH") edad ciu fut pack
 
 mudanza :: Persona -> Nombre -> Persona
