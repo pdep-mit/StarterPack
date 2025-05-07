@@ -112,3 +112,25 @@ modoDiego (UnPersona nom edad ciu fut pack) = UnPersona (nom ++ "EEEEEEHHH") eda
 
 mudanza :: Persona -> Nombre -> Persona
 mudanza (UnPersona nom edad ciudad fut pack) nuevaCiudad = UnPersona nom edad nuevaCiudad fut pack
+
+-------------
+
+mayorSegun :: (Persona -> Number) -> Persona -> Persona -> Persona
+mayorSegun ponderacion persona1 persona2
+  | ponderacion persona1 >= ponderacion persona2 = persona1
+  | otherwise = persona2
+
+masVieja :: [Persona] -> Persona
+masVieja personas = foldl (mayorSegun edad) (head personas) (tail personas)
+masVieja' = foldl1 (mayorSegun edad)
+
+cumplenConsecutivamente :: (Persona -> Persona -> Bool) -> [Persona] -> Bool
+cumplenConsecutivamente _ [] = True 
+cumplenConsecutivamente _ [_] = True
+cumplenConsecutivamente criterio (persona1:persona2:resto)
+  = criterio persona1 persona2 && cumplenConsecutivamente criterio (persona2:resto)
+
+aplicarEfectos :: [Persona  -> Persona] -> Persona -> Persona
+aplicarEfectos efectos personaInicial = foldl (\personaAnterior efecto -> efecto personaAnterior) personaInicial efectos
+
+aplicarEfectos' efectos personaInicial = foldl (flip ($)) personaInicial efectos
